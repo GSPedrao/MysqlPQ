@@ -22,4 +22,3 @@ desc cidades
 
 select nome from `cidades` where nome like 'L%'
 
-select nome from cidad

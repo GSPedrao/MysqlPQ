@@ -54,6 +54,8 @@ VALUES
     ('Amapá', 'AP', 'Norte', 0.8),
     ('Paraná', 'PR', 'Sul', 11.51);
 
+    --cidades
+
     Create table if not exists cidades (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     nome VARCHAR(255) NOT NULL,
@@ -61,4 +63,40 @@ VALUES
     area DECIMAL(10,2),
     PRIMARY KEY (id),
     FOREIGN KEY (estado_id) REFERENCES estados (id_estado)
-)
+);
+
+--prefeitos
+
+create table if not exists prefeitos (
+id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+nome varchar(255) NOT NULL,
+cidade_id int UNSIGNED,
+PRIMARY KEY (id),
+FOREIGN KEY (cidade_id) References cidades (id)
+);
+
+Insert into prefeitos
+(nome, cidade_id)
+VALUES 
+("Marcelo Bellinati",(select id From `cidades` where nome = 'Londrina')),
+('Ricardo Nunes',(select id From `cidades` where nome = 'São Paulo')),
+('Angelo Scheller',(select id From `cidades` where nome = 'Cambé')),
+('Jose Maria', (select id From `cidades` where nome = 'Ibiporã')),
+('Susana Alexandra', (select id From `cidades` where nome = 'Juazeiro')),
+('Guerino Balestrassi', (select id From `cidades` where nome = 'Colatina')),
+('Ed Thomas',(select id From `cidades` where nome = 'Presidente Prudente')),
+('Eduardo Paes',(select id From `cidades` where nome = 'Rio de Janeiro')),
+('Roberto Cláudio',(select id From `cidades` where nome = 'Fortaleza')),
+('David Almeida',(select id From `cidades` where nome = 'Manaus')),
+('Pedrao', null),
+('Kevin', null),
+('Pulo', null),
+('Allyfo', null);
+
+create table if not exists empresas_cidades(
+    empresa_id int UNSIGNED NOT NULL,
+    cidade_id int unsigned not null,
+    sede int(1) not null,
+    primary key (empresa_id, cidade_id)
+);
+
